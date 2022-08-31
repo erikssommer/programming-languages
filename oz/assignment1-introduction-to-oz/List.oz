@@ -1,3 +1,4 @@
+% Task 7
 % a)
 fun {Length List}
     case List of Head|Rest then
@@ -75,5 +76,15 @@ fun {Position List Element}
                 1 + {Position Rest Element}
             end
         end
+    end
+end
+
+% Task 8
+% a)
+fun {Push List Element}
+    if {Length List} == 0 then
+        [Element]
+    else
+        Element|List
     end
 end
