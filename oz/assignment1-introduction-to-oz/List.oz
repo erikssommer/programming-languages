@@ -88,3 +88,21 @@ fun {Push List Element}
         Element|List
     end
 end
+
+% b)
+fun {Peek List}
+    if {Length List} == 0 then
+        nil
+    else
+        case List of Head|Rest then
+            Head
+        end
+    end
+end
+
+% c)
+fun {Pop List}
+    case List of Head|Rest then
+        Rest
+    end
+ end
