@@ -62,3 +62,18 @@ fun {Member List Element}
         end
     end    
 end
+
+% f)
+fun {Position List Element}
+    if {Length List} == 0 then
+        0
+    else
+        case List of Head|Rest then
+            if Head == Element then
+                0
+            else
+                1 + {Position Rest Element}
+            end
+        end
+    end
+end

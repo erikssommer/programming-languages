@@ -28,5 +28,9 @@ define
     {System.show {Member L 5}} % true
     {System.show {Member L 8}} % false
 
+    % f)
+    {System.show {Position L 3}}
+
+    
     {Exit 0}
 end
