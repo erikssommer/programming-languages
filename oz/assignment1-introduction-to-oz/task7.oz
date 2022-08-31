@@ -23,5 +23,10 @@ define
     % d)
     L2 = [8 7 6]
     {System.show {Append L L2}}
+
+    % e)
+    {System.show {Member L 5}} % true
+    {System.show {Member L 8}} % false
+
     {Exit 0}
 end

@@ -47,3 +47,18 @@ fun {Append List1 List2}
         end
     end
 end
+
+% e)
+fun {Member List Element}
+    if {Length List} == 0 then
+        false
+    else
+        case List of Head|Rest then
+            if Head == Element then
+                true
+            else
+                {Member Rest Element}
+            end
+        end
+    end    
+end
