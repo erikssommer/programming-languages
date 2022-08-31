@@ -21,7 +21,7 @@ define
     {System.show {Drop L 6}}
 
     % d)
-    L2 = [8 7 6 1]
-
+    L2 = [8 7 6]
+    {System.show {Append L L2}}
     {Exit 0}
 end

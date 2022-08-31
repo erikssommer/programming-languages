@@ -39,5 +39,11 @@ end
 
 % d)
 fun {Append List1 List2}
-    
+    if {Length List1} == 0 then
+        List2
+    else
+        case List1 of Head|Rest then
+            Head|{Append Rest List2}
+        end
+    end
 end
