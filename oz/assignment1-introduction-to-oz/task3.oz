@@ -19,4 +19,5 @@ define
       thread {System.showInfo Y} end
       Y=X
    end
+   {Exit 0}
 end
