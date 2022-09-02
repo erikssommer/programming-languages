@@ -1,5 +1,5 @@
 % Task 7
-% a)
+% a) return the element count of List
 fun {Length List}
     case List of Head|Rest then
         1 + {Length Rest}
@@ -8,7 +8,7 @@ fun {Length List}
     end
 end
 
-% b)
+% b) return a list of the first Count elements
 fun {Take List Count}
     if Count == 0 then
         nil
@@ -23,7 +23,7 @@ fun {Take List Count}
     end
 end
 
-% c)
+% c) return a list without the first Count values
 fun {Drop List Count}
     if Count >= {Length List} then
         nil
@@ -38,7 +38,7 @@ fun {Drop List Count}
     end
 end
 
-% d)
+% d) return a list of all the elements in List1 followed by all the elements in List2
 fun {Append List1 List2}
     if {Length List1} == 0 then
         List2
@@ -49,7 +49,7 @@ fun {Append List1 List2}
     end
 end
 
-% e)
+% e) return true if Element is present in List, false otherwise
 fun {Member List Element}
     if {Length List} == 0 then
         false
@@ -64,7 +64,7 @@ fun {Member List Element}
     end    
 end
 
-% f)
+% f) return the position of Element in List
 fun {Position List Element}
     if {Length List} == 0 then
         0
@@ -80,7 +80,7 @@ fun {Position List Element}
 end
 
 % Task 8
-% a)
+% a) return an updated version of List, in which Element has been added in the first position
 fun {Push List Element}
     if {Length List} == 0 then
         [Element]
@@ -89,7 +89,7 @@ fun {Push List Element}
     end
 end
 
-% b)
+% b) return the element in the first position of List, or nil if the stack (list) is empty
 fun {Peek List}
     if {Length List} == 0 then
         nil
@@ -100,7 +100,7 @@ fun {Peek List}
     end
 end
 
-% c)
+% c) return an updated version of List, in which the first element has been removed
 fun {Pop List}
     case List of Head|Rest then
         Rest
