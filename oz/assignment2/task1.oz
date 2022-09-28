@@ -26,13 +26,20 @@ define
                 Token = operator(type:multiply)
             [] "/" then 
                 Token = operator(type:divide)
+            [] "p" then
+                Token = command(print) % d)
+            [] "d" then
+                Token = command(duplicate) % e)
+            [] "i" then
+                Token = command(flip) % f)
+            [] "c" then
+                Token = command(clear) % g)
             else 
                 try
                     Token = number({String.toFloat Head})
                 catch Exception then
-                    raise "Invalid lexeme"
+                    {System.show '** '#Exception#' **'}
                 end
-            end
             end
                 Token | {Tokenize Tail}
             else
@@ -55,16 +62,16 @@ define
     
         % Define commands
         Commands = commands(
-            print: fun {$ X} {System.show {List.reverse X}} X end
+            print: fun {$ X} {System.show X} X end
             duplicate: fun {$ X} X.1 | X end
             flip: fun {$ X} case X of number(Head)|Tail then number(~Head) | Tail end end
-            inverse: fun {$ X} case X of number(Head)|Tail then number((1.0/Head)) | Tail end end
+            clear: fun {$ X} case X of number(Head)|Tail then nil | Tail end end % TODO: This is not working --> needs to clear list
         )
     
         % Create stack 
         fun {TokensStack Tokens Stack}
             case Tokens of nil then % Check if list of tokens are empty, if yes, result should be at top of stack
-                {List.reverse Stack} % Returns the stack in reverse
+                Stack
     
             [] operator(type:Operation) | Tail then % Check first element for operator
                 case Stack of number(Num2) | number(Num1) | Rest then % Pull two numbers from top of stack
@@ -85,8 +92,22 @@ define
         {TokensStack Tokens nil}
     end
 
+    {System.show {Interpret [number(1) number(2) number(3) operator(type:plus)]}}
     % Testing with chained functions 
     {System.show {Interpret {Tokenize {Lex "1 2 3 +"}}}}
+
+    % d)
+    % Testing with print command
+    {System.show {Interpret {Tokenize {Lex "1 2 p 3 +"}}}}
+
+    % e)
+    {System.show {Interpret {Tokenize {Lex "1 2 3 + d"}}}}
+    
+    % f)
+    {System.show {Interpret {Tokenize {Lex "1 2 3 + i"}}}}
+    
+    % g)
+    {System.show {Interpret {Tokenize {Lex "1 2 3 + c"}}}}
 
     {Exit 0}
 end
