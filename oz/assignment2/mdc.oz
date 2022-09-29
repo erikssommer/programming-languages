@@ -94,7 +94,7 @@ define
                 else nil end
             % If element is a command
             [] command(Command) | Tail then
-                % Perform operation defined in Operations add result to stack
+                % Perform operation and add result to stack
                 if Command == 'print' then
                     {TokensStack Tail {Print Stack}}
                 elseif Command == 'duplicate' then
