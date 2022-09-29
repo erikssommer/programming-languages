@@ -82,7 +82,15 @@ define
                 % Two values are popped from the stack
                 case Stack of number(Num1) | number(Num2) | Rest then
                     % The appropriate arithmetic operation is applied, and the result is pushed onto the stack.
-                    {TokensStack Tail number({Operations.Operation Num1 Num2}) | Rest}
+                    if Operation == 'plus' then
+                        {TokensStack Tail number({Plus Num1 Num2}) | Rest}
+                    elseif Operation == 'minus' then
+                        {TokensStack Tail number({Minus Num1 Num2}) | Rest}
+                    elseif Operation == 'multiply' then
+                        {TokensStack Tail number({Multiply Num1 Num2}) | Rest}
+                    elseif Operation == 'divide' then
+                        {TokensStack Tail number({Devide Num1 Num2}) | Rest}
+                    end
                 else nil end
             % If element is a command
             [] command(Command) | Tail then
