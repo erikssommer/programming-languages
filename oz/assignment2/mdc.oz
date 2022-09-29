@@ -65,7 +65,7 @@ define
             print: fun {$ X} {System.show X} X end
             duplicate: fun {$ X} X.1 | X end
             flip: fun {$ X} case X of number(Head)|Tail then number(~Head) | Tail end end
-            clear: fun {$ X} case X of number(Head)|Tail then nil | Tail end end % TODO: This is not working --> needs to clear list
+            clear: fun {$ X} case X of number(Head)|Tail then Tail end end % TODO: This is not working --> needs to clear list
         )
     
         % Create stack 
