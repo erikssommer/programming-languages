@@ -4,7 +4,7 @@ import
     System
 define
     % importing file containing functions
-    \insert 'list.oz'
+    % \insert 'list.oz'
 
     % a)
     fun {Lex Input}
@@ -55,20 +55,16 @@ define
     fun {Interpret Tokens}
 
         % Define operations
-        Operations = operators(
-            plus: fun {$ Num1 Num2} Num1 + Num2 end
-            minus: fun {$ Num1 Num2} Num1 - Num2 end
-            multiply: fun {$ Num1 Num2} Num1 * Num2 end
-            divide: fun {$ Num1 Num2} Num1 / Num2 end
-        )
-    
+        fun {Plus Num1 Num2} Num1 + Num2 end
+        fun {Minus Num1 Num2} Num1 - Num2 end
+        fun {Multiply Num1 Num2} Num1 * Num2 end
+        fun {Devide Num1 Num2} Num1 / Num2 end
+
         % Define commands
-        Commands = commands(
-            print: fun {$ Stack} {System.show Stack} Stack end
-            duplicate: fun {$ Stack} Stack.1 | Stack end
-            flip: fun {$ Stack} case Stack of number(Head) | Tail then number(~Head) | Tail end end
-            clear: fun {$ Stack} {Clear Stack} end
-        )
+        fun {Print Stack} {System.show Stack} Stack end
+        fun {Duplicate Stack} Stack.1 | Stack end
+        fun {Flip Stack} case Stack of number(Head) | Tail then number(~Head) | Tail end end
+        fun {Clear List} case List of Head|Rest then if {Length List} == 1 then nil else {Clear Rest} end end end
     
         % Create stack 
         fun {TokensStack Tokens Stack}
@@ -91,7 +87,15 @@ define
             % If element is a command
             [] command(Command) | Tail then
                 % Perform operation defined in Operations add result to stack
-                {TokensStack Tail {Commands.Command Stack}}
+                if Command == 'print' then
+                    {TokensStack Tail {Print Stack}}
+                elseif Command == 'duplicate' then
+                    {TokensStack Tail {Duplicate Stack}}
+                elseif Command == 'flip' then
+                    {TokensStack Tail {Flip Stack}}
+                elseif Command == 'clear' then
+                    {TokensStack Tail {Clear Stack}}
+                end
             else 
                 raise "An error has occurred" end 
             end
