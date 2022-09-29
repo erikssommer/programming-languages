@@ -70,20 +70,26 @@ define
     
         % Create stack 
         fun {TokensStack Tokens Stack}
-            case Tokens of nil then % Check if list of tokens are empty, if yes, result should be at top of stack
+            % Check if list of tokens are empty
+            case Tokens of nil then
+                % Return result at top of stack
                 Stack
-    
-            [] operator(type:Operation) | Tail then % Check first element for operator
-                case Stack of number(Num2) | number(Num1) | Rest then % Pull two numbers from top of stack
-                    {TokensStack Tail number({Operations.Operation Num1 Num2}) | Rest} % Perform operation defined in Operations add result to stack
+            % If the current element is a numeral
+            [] number(Num) | Tail then
+                % The it is pushed onto the stack.
+                {TokensStack Tail number(Num) | Stack}
+            
+            % If the current element is an arithmetic operator
+            [] operator(type:Operation) | Tail then
+                % Two values are popped from the stack
+                case Stack of number(Num2) | number(Num1) | Rest then
+                    % The appropriate arithmetic operation is applied, and the result is pushed onto the stack.
+                    {TokensStack Tail number({Operations.Operation Num1 Num2}) | Rest}
                 else nil end
-    
-            [] command(Command) | Tail then % Check first element for command
-                {TokensStack Tail {Commands.Command Stack}} % Perform operation defined in Operations add result to stack
-
-            [] number(Num) | Tail then % Check first element for number
-                {TokensStack Tail number(Num) | Stack} % Add number to stack
-    
+            % If element is a command
+            [] command(Command) | Tail then
+                % Perform operation defined in Operations add result to stack
+                {TokensStack Tail {Commands.Command Stack}}
             else 
                 raise "An error has occurred" end 
             end
