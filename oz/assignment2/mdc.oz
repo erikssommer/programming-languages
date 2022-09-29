@@ -64,7 +64,7 @@ define
         fun {Print Stack} {System.show Stack} Stack end
         fun {Duplicate Stack} Stack.1 | Stack end
         fun {Flip Stack} case Stack of number(Head) | Tail then number(~Head) | Tail end end
-        fun {Clear List} case List of Head|Tail then if {Length List} == 1 then nil else {Clear Tail} end end end
+        fun {Clear List} case List of Head | Tail then if {Length List} == 1 then nil else {Clear Tail} end end end
     
         % Create stack 
         fun {TokensStack Tokens Stack}
@@ -134,30 +134,32 @@ define
 
         % Define operations
         Ops = operators(
-            plus: "+"
-            minus: "-"
-            multiply: "*"
-            divide: "/"
+            plus: "plus"
+            minus: "minus"
+            multiply: "multiply"
+            divide: "devide"
         )
     
         % Create stack 
         fun {ExpressionTreeInternal Tokens ExpressionStack}
             % When you encounter a non-operator token in the input list, push it to the expression stack
             case Tokens of number(Number) | Tail then
-                {ExpressionTreeInternal Tail Number | ExpressionStack}
-    
+                {ExpressionTreeInternal Tail "("#{VirtualString.toAtom Number}#")" | ExpressionStack}
+            % When you encounter an operator token in the input list, remove two expressions from the expression stack and use them as operands,
+            % in a newly built expression according to the received operator (e.g., plus(EXP1 EXP2)).
+            % Then, push this new expression to the expression stack.
             [] operator(type:Op) | Tail then
-                case ExpressionStack of Num1 | Num2 | Rest then
-                    {ExpressionTreeInternal Tail "("#{VirtualString.toAtom Num2}#{String.toAtom Ops.Op}#{VirtualString.toAtom Num1}#")" | Rest}
-                else raise "error" end 
+                case ExpressionStack of Number1 | Number2 | Rest then
+                    {ExpressionTreeInternal Tail "("#{VirtualString.toAtom Number2}#{String.toAtom Ops.Op}#{VirtualString.toAtom Number1}#")" | Rest}
+                else raise "An error has occurred" end 
                 end
             % When all the input tokens have been processed, return the element at the top of the expression stack
             [] nil then
                 ExpressionStack
-    
+            
             else 
                 {System.show Tokens} 
-                raise "error" end
+                raise "An error has occurred" end
             end
         end
     in
