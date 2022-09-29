@@ -64,7 +64,7 @@ define
         fun {Print Stack} {System.show Stack} Stack end
         fun {Duplicate Stack} Stack.1 | Stack end
         fun {Flip Stack} case Stack of number(Head) | Tail then number(~Head) | Tail end end
-        fun {Clear List} case List of Head|Rest then if {Length List} == 1 then nil else {Clear Rest} end end end
+        fun {Clear List} case List of Head|Tail then if {Length List} == 1 then nil else {Clear Tail} end end end
     
         % Create stack 
         fun {TokensStack Tokens Stack}
@@ -128,6 +128,43 @@ define
     
     % g)
     {System.show {Interpret {Tokenize {Lex "1 2 3 6 8 + c"}}}}
+
+    % Task 2
+    fun {ExpressionTree Tokens}
+
+        % Define operations
+        Ops = operators(
+            plus: "+"
+            minus: "-"
+            multiply: "*"
+            divide: "/"
+        )
+    
+        % Create stack 
+        fun {ExpressionTreeInternal Tokens ExpressionStack}
+            % When you encounter a non-operator token in the input list, push it to the expression stack
+            case Tokens of number(Number) | Tail then
+                {ExpressionTreeInternal Tail Number | ExpressionStack}
+    
+            [] operator(type:Op) | Tail then
+                case ExpressionStack of Num1 | Num2 | Rest then
+                    {ExpressionTreeInternal Tail "("#{VirtualString.toAtom Num2}#{String.toAtom Ops.Op}#{VirtualString.toAtom Num1}#")" | Rest}
+                else raise "error" end 
+                end
+            % When all the input tokens have been processed, return the element at the top of the expression stack
+            [] nil then
+                ExpressionStack
+    
+            else 
+                {System.show Tokens} 
+                raise "error" end
+            end
+        end
+    in
+        {ExpressionTreeInternal Tokens nil}
+    end
+
+    {System.show {ExpressionTree [number(2) number(3) operator(type:plus) number(5) operator(type:divide)]}}
 
     {Exit 0}
 end
