@@ -107,13 +107,3 @@ fun {Pop List}
         Rest
     end
 end
-
-fun {Clear List}
-    case List of Head|Rest then
-        if {Length List} == 1 then
-            nil
-        else
-            {Clear Rest}
-        end
-    end
- end
