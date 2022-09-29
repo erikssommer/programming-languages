@@ -1,3 +1,4 @@
+%declare Length Take Drop Append Member Position Push Peek Pop Clear in
 % Task 7
 % a) return the element count of List
 fun {Length List}
@@ -104,5 +105,15 @@ end
 fun {Pop List}
     case List of Head|Rest then
         Rest
+    end
+end
+
+fun {Clear List}
+    case List of Head|Rest then
+        if {Length List} == 1 then
+            nil
+        else
+            {Clear Rest}
+        end
     end
  end
