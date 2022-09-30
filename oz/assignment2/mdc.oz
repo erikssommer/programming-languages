@@ -4,7 +4,7 @@ import
     System
 define
     % importing file containing functions
-    % \insert 'list.oz'
+    \insert 'list.oz'
 
     % a)
     fun {Lex Input}
@@ -144,13 +144,13 @@ define
         fun {ExpressionTreeInternal Tokens ExpressionStack}
             % When you encounter a non-operator token in the input list, push it to the expression stack
             case Tokens of number(Number) | Tail then
-                {ExpressionTreeInternal Tail "("#{VirtualString.toAtom Number}#")" | ExpressionStack}
+                {ExpressionTreeInternal Tail Number | ExpressionStack}
             % When you encounter an operator token in the input list, remove two expressions from the expression stack and use them as operands,
             % in a newly built expression according to the received operator (e.g., plus(EXP1 EXP2)).
             % Then, push this new expression to the expression stack.
             [] operator(type:Op) | Tail then
                 case ExpressionStack of Number1 | Number2 | Rest then
-                    {ExpressionTreeInternal Tail "("#{VirtualString.toAtom Number2}#{String.toAtom Ops.Op}#{VirtualString.toAtom Number1}#")" | Rest}
+                    {ExpressionTreeInternal {Pop Tokens} Op(Number1 Number2) | Rest}
                 else raise "An error has occurred" end 
                 end
             % When all the input tokens have been processed, return the element at the top of the expression stack
@@ -163,7 +163,7 @@ define
             end
         end
     in
-        {ExpressionTreeInternal Tokens nil}
+        {ExpressionTreeInternal Tokens nil}.1
     end
 
     {System.show {ExpressionTree [number(2) number(3) operator(type:plus) number(5) operator(type:divide)]}}
