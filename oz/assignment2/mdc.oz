@@ -46,11 +46,12 @@ fun {Interpret Tokens}
     fun {Minus Num1 Num2} Num1 - Num2 end
     fun {Multiply Num1 Num2} Num1 * Num2 end
     fun {Devide Num1 Num2} Num1 / Num2 end
+    
     % Define commands
     fun {Print Stack} {System.show Stack} Stack end
     fun {Duplicate Stack} Stack.1 | Stack end
-    fun {Flip Stack} case Stack of number(Head) | Tail then number(~Head) | Tail end end
-    fun {Clear List} case List of Head | Tail then if {Length List} == 1 then nil else {Clear Tail} end end end
+    fun {Flip Stack} case Stack of Head | Tail then ~Head | Tail end end
+    fun {Clear Stack} case Stack of Head | Tail then if {Length Stack} == 1 then nil else {Clear Tail} end end end
 
     % Create stack 
     fun {TokensStack Tokens Stack}
@@ -61,23 +62,24 @@ fun {Interpret Tokens}
         % If the current element is a numeral
         [] number(Number) | Tail then
             % The it is pushed onto the stack.
-            {TokensStack Tail number(Number) | Stack}
+            {TokensStack Tail Number | Stack}
         
         % If the current element is an arithmetic operator
         [] operator(type:Operation) | Tail then
             % Two values are popped from the stack
-            case Stack of number(Num1) | number(Num2) | Rest then
+            case Stack of Num1 | Num2 | Rest then
                 % The appropriate arithmetic operation is applied, and the result is pushed onto the stack.
                 if Operation == 'plus' then
-                    {TokensStack Tail number({Plus Num1 Num2}) | Rest}
+                    {TokensStack Tail {Plus Num1 Num2} | Rest}
                 elseif Operation == 'minus' then
-                    {TokensStack Tail number({Minus Num1 Num2}) | Rest}
+                    {TokensStack Tail {Minus Num1 Num2} | Rest}
                 elseif Operation == 'multiply' then
-                    {TokensStack Tail number({Multiply Num1 Num2}) | Rest}
+                    {TokensStack Tail {Multiply Num1 Num2} | Rest}
                 elseif Operation == 'divide' then
-                    {TokensStack Tail number({Devide Num1 Num2}) | Rest}
-                end
-            else nil end
+                    {TokensStack Tail {Devide Num1 Num2} | Rest}
+                else nil end
+            else raise "Stack is empty" end
+        end
         % If element is a command
         [] command(Command) | Tail then
             % Perform operation and add result to stack
