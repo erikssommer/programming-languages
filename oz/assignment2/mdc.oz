@@ -1,7 +1,9 @@
 % Task 1: mdc
 % a)
+% Takes a string as input
 fun {Lex Input}
     if{IsString Input} then
+        % Returns an array of lexemes as output
         {String.tokens Input & }
     else
         raise "Input is not a string" end
@@ -11,6 +13,7 @@ end
 % b)
 fun {Tokenize Lexemes} Token in
     case Lexemes of Head|Tail then
+        % Put each lexeme into a record
         case Head of "+" then 
             Token = operator(type:plus)
         [] "-" then 
@@ -28,17 +31,20 @@ fun {Tokenize Lexemes} Token in
         [] "c" then
             Token = command(clear) % g)
         else 
+            % Handling exception if lexeme is a number
             try
                 Token = number({String.toFloat Head})
             catch Exception then
-                {System.show '** '#Exception#' **'}
+                {System.show Exception}
             end
         end
+            % Recursively call Tokenize on the tail of the lexemes
             Token | {Tokenize Tail}
         else
             nil
     end
-end 
+end
+
 % c)
 fun {Interpret Tokens}
     % Define operations
@@ -46,7 +52,7 @@ fun {Interpret Tokens}
     fun {Minus Num1 Num2} Num1 - Num2 end
     fun {Multiply Num1 Num2} Num1 * Num2 end
     fun {Devide Num1 Num2} Num1 / Num2 end
-    
+
     % Define commands
     fun {Print Stack} {System.show Stack} Stack end
     fun {Duplicate Stack} Stack.1 | Stack end
@@ -80,6 +86,7 @@ fun {Interpret Tokens}
                 else nil end
             else raise "Stack is empty" end
         end
+
         % If element is a command
         [] command(Command) | Tail then
             % Perform operation and add result to stack
@@ -97,11 +104,14 @@ fun {Interpret Tokens}
         end
     end
 in
+    % Calling TokensStack with the appropriate arguments
     {TokensStack Tokens nil}
 end
 
 % Task 2 - Convert postfix notation into an expression tree
+% b)
 fun {ExpressionTree Tokens}
+    % a)
     % Create stack 
     fun {ExpressionTreeInternal Tokens ExpressionStack}
         % When encounter a non-operator token in the input list
@@ -116,15 +126,17 @@ fun {ExpressionTree Tokens}
                 {ExpressionTreeInternal {Pop Tokens} Operation(Number1 Number2) | Rest}
             else raise "An error has occurred" end 
             end
+            
         % When all the input tokens have been processed, return the element at the top of the expression stack
         [] nil then
             ExpressionStack
         
-        else 
-            {System.show Tokens} 
+        else
+            {System.show Tokens}
             raise "An error has occurred" end
         end
     end
 in
+    % Calling ExpressionTreeInternal with the appropriate arguments
     {ExpressionTreeInternal Tokens nil}.1
 end
