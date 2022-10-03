@@ -47,5 +47,6 @@ define
     {System.show {ExpressionTree [number(2) number(3) operator(type:plus) number(5) operator(type:divide)]}}
     {System.show {ExpressionTree [number(3) number(10) number(9) operator(type:multiply) operator(type:minus) number(7) operator(type:plus)]}}
     {System.show {ExpressionTree {Tokenize {Lex "3 10 9 * - 7 +"}}}}
+    {System.show {ExpressionTree {Tokenize {Lex "3"}}}}
 
 end
