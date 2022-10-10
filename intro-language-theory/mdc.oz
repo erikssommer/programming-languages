@@ -57,7 +57,7 @@ fun {Interpret Tokens}
     fun {Print Stack} {System.show Stack} Stack end
     fun {Duplicate Stack} Stack.1 | Stack end
     fun {Flip Stack} case Stack of Head | Tail then ~Head | Tail end end
-    fun {Clear Stack} case Stack of Head | Tail then if {Length Stack} == 1 then nil else {Clear Tail} end end end
+    fun {Clear Stack} case Stack of _| Tail then if {Length Stack} == 1 then nil else {Clear Tail} end end end
 
     % Create stack 
     fun {TokensStack Tokens Stack}
@@ -119,7 +119,7 @@ fun {ExpressionTree Tokens}
             % Push operator to the expression stack
             {ExpressionTreeInternal Tail Number | ExpressionStack}
         % When encounter an operator token in the input list
-        [] operator(type:Operation) | Tail then
+        [] operator(type:Operation) |_ then
             % Remove two expressions from the expression stack and use them as operands
             case ExpressionStack of Number1 | Number2 | Rest then
                 % Push new expression to the expression stack

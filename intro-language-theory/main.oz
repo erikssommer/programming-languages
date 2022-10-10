@@ -49,4 +49,6 @@ define
     {System.show {ExpressionTree {Tokenize {Lex "3 10 9 * - 7 +"}}}}
     {System.show {ExpressionTree {Tokenize {Lex "3"}}}}
 
+    {Exit 0}
+
 end
