@@ -1,7 +1,7 @@
 % Task 7
 % a) return the element count of List
 fun {Length List}
-    case List of Head|Rest then
+    case List of _|Rest then
         1 + {Length Rest}
     else
         0
@@ -31,7 +31,7 @@ fun {Drop List Count}
         if Count == 0 then
             List
         else
-            case List of Head|Rest then
+            case List of _|Rest then
                 {Drop Rest Count-1}
             end
         end
@@ -94,7 +94,7 @@ fun {Peek List}
     if {Length List} == 0 then
         nil
     else
-        case List of Head|Rest then
+        case List of Head|_ then
             Head
         end
     end
@@ -102,7 +102,7 @@ end
 
 % c) return an updated version of List, in which the first element has been removed
 fun {Pop List}
-    case List of Head|Rest then
+    case List of _|Rest then
         Rest
     end
  end
