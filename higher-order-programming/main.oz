@@ -8,6 +8,7 @@ define
     % Procedural abstraction - the ability to convert any statement into a procedure value.
     
     % Task 1:
+    {System.showInfo '\nTask 1'}
     % a)
     % Procedural that solves a quadratic equation.
     proc {QuadraticEquation A B C ?RealSol ?X1 ?X2}
@@ -54,6 +55,20 @@ define
     
     % Genericity - the ability to pass procedure values as argumens to a procedure call.
 
+    % Task 2
+    {System.showInfo '\nTask 2'}
+
+    fun {Sum List}
+        case List of Head|Tail then
+            Head + {Sum Tail}
+        [] nil then
+            0
+        end
+    end
+
+    % Testing implementation
+    {System.show {Sum [1 2 3 4 5]}}
+    {System.show {Sum [1 2 3 4 5 6 7 8 9 10]}}
     % Instantiation - the ability to return procedure values as results from a procedure call.
 
     % Embedding - the ability to put procedure values in data structures.
