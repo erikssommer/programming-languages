@@ -96,6 +96,22 @@ define
         {RightFold List fun {$ X Y} 1 + Y end 0}
     end
 
+    % d)
+    /*
+    Q: For the Sum and Lenght operations, would LeftFold (a left-associative fold) and RightFold give different
+        results? Can you provide an example of an operation for which the two folds do not produce the same result?
+    A: The operations Sum and Length does not depent on right-fold and would work with left-fold because the order of grouping the numbers does not matter for addition. The same holds for multiplication.
+        The same can not be said about subtraction and division.
+        For example, if we have the list [1 2 3 4] and we want to subtract the numbers in the list from each other, we would get the result -8 with right-fold and -2 with left-fold.
+    */
+
+    % e)
+    /*
+    Q: What is an appropriate value for U when using RightFold to implement the product of list elements?
+    A: An appropriate value for U is 1. It will not alter the result or make it 0.
+    */
+
+    % Testing the implementation
     {System.show {Sum [0 1 2 3 4]}}
     {System.show {Length [1 2 3 4]}}
 
