@@ -136,6 +136,19 @@ define
 
     % Embedding - the ability to put procedure values in data structures.
 
+    % Task 5
+    {System.showInfo '\nTask 5'}
+    
+    % generates an infinite list of incrementing integers on demand
+    fun {LazyNumberGenerator StartValue}
+        StartValue | fun {$} {LazyNumberGenerator StartValue + 1} end
+    end
+
+    % Testing the implementation
+    {System.show {LazyNumberGenerator 0}.1}
+    {System.show {{LazyNumberGenerator 0}.2}.1}
+    {System.show {{{{{{LazyNumberGenerator 0}.2}.2}.2}.2}.2}.1}
+
     % Tail Recursion - the ability to write recursive procedures without using stack space.
 
     {Exit 0}
