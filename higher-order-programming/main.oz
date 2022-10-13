@@ -116,6 +116,23 @@ define
     {System.show {Length [1 2 3 4]}}
 
     % Instantiation - the ability to return procedure values as results from a procedure call.
+    
+    % Task 4
+    {System.showInfo '\nTask 4'}
+    
+    % Function takes in three constants
+    fun {Quadratic A B C}
+        % Returns a function that takes in a value
+        fun {Calculate X}
+            % Returns the result of the quadratic equation
+            A * {Number.pow X 2} + B * X + C
+        end
+    in
+        Calculate
+    end
+
+    % Testing the implementation
+    {System.show {{Quadratic 3 2 1} 2}}
 
     % Embedding - the ability to put procedure values in data structures.
 
