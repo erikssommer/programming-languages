@@ -141,6 +141,7 @@ define
     
     % generates an infinite list of incrementing integers on demand
     fun {LazyNumberGenerator StartValue}
+        % Infinte call where StartValue increases towards infinity
         StartValue | fun {$} {LazyNumberGenerator StartValue + 1} end
     end
 
@@ -148,6 +149,12 @@ define
     {System.show {LazyNumberGenerator 0}.1}
     {System.show {{LazyNumberGenerator 0}.2}.1}
     {System.show {{{{{{LazyNumberGenerator 0}.2}.2}.2}.2}.2}.1}
+
+    % b)
+    /*
+    Q: Give a high-level desciption of your solution and point out any limitations you find relevant.
+    A: 
+    */
 
     % Tail Recursion - the ability to write recursive procedures without using stack space.
 
