@@ -123,12 +123,12 @@ define
     % Function takes in three constants
     fun {Quadratic A B C}
         % Returns a function that takes in a value
-        fun {Calculate X}
+        fun {Equation X}
             % Returns the result of the quadratic equation
             A * {Number.pow X 2} + B * X + C
         end
     in
-        Calculate
+        Equation
     end
 
     % Testing the implementation
