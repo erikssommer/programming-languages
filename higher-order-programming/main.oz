@@ -165,5 +165,47 @@ define
 
     % Tail Recursion - the ability to write recursive procedures without using stack space.
 
+    % Task 6
+    {System.showInfo '\nTask 6'}
+
+    % a) Implementatn of tail recursive sum function
+    local Sum TailRecursive in
+        fun {Sum List}
+            % Tail recursive function
+            fun {TailRecursive List Sum}
+                case List of Head|Tail then
+                    {TailRecursive Tail Sum + Head}
+                [] nil then
+                    Sum
+                end
+            end
+            {TailRecursive List 0}
+        end
+
+        % Testing the implementation
+        {System.show {Sum [1 2 3 4 5]}}
+    end
+
+    % b)
+    /*
+    Q: Is your Sum function from Task 2 tail recursive? If yes, explain why. If not, implement a tail-recursive version and explain which changes you needed to introduce to make it tail recursive.
+    A: The Sum function from Task 2 is not tail recursive since the function counts from the head to the tail.
+        The tail recursive version of the function is implemented in the code above, and moves from the back of the tail to the front of the list couning the sum along the way
+    */
+
+    % c)
+    /*
+    Q: What is the benefit of tail recursion in Oz?
+    A: The benefit of tail recursion in Oz is that it does not use stack space.
+    */
+
+    % d)
+    /*
+    Q: Do all programming languages that allow recursion benefit from tail recursion? Why/why not?
+    A: No, not all programming languages that allow recursion benefit from tail recursion.
+        Programming languages have different ways of implementing recursion, and the compiler utalizes special optimizations differently in different language.
+    */
+
+
     {Exit 0}
 end
