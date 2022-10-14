@@ -12,12 +12,15 @@ define
     % a)
     % Procedural that solves a quadratic equation.
     proc {QuadraticEquation A B C ?RealSol ?X1 ?X2}
+        % Testing if the equation is solvable in real space
         if {Number.pow B 2.} - 4. * A * C < 0. then
             {System.showInfo "No real solutions"}
             RealSol = false
+        % Testing if equation has only one solution for x
         elseif {Number.pow B 2.} - 4. * A * C == 0. then
             X1 = ~B / (2. * A)
             RealSol = true
+        % The solution has two possible values for x
         else
             X1 = (~B - {Float.sqrt {Number.pow B 2.} - 4. * A * C}) / (2. * A)
             X2 = (~B + {Float.sqrt {Number.pow B 2.} - 4. * A * C}) / (2. * A)
@@ -44,13 +47,14 @@ define
     % c) 
     /*
     Q: Why are procedural abstractions useful?
-    A: They are useful because they allow us to create a procedure that can be used in many different situations.
+    A: Procedural abstractions are useful because they allow us to create a procedure that can be used in many different situations.
+        This makes the code more readable and easier to maintain. Can update multiple values
     */
 
     % d)
     /*
     Q: What is the difference between a procedure and a function?
-    A: A procedure is a void function that does not return a value while a function returns a value.
+    A: A procedure is a void function that does not return a value while a function returns a value. Both perform a task.
     */
     
     % Genericity - the ability to pass procedure values as argumens to a procedure call.
@@ -60,8 +64,11 @@ define
 
     local Sum in
         fun {Sum List}
+            % Iterating through the list from head to tail
             case List of Head|Tail then
+                % Adding the head to the sum and recursivly calling with tail
                 Head + {Sum Tail}
+            % Base case
             [] nil then
                 0
             end
