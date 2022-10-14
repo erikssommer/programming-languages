@@ -141,8 +141,11 @@ define
     
     % generates an infinite list of incrementing integers on demand
     fun {LazyNumberGenerator StartValue}
-        % Infinte call where StartValue increases towards infinity
-        StartValue | fun {$} {LazyNumberGenerator StartValue + 1} end
+        % Functional nesting with anonymous function
+        StartValue | fun {$} 
+            % Infinte call where StartValue increases towards infinity
+            {LazyNumberGenerator StartValue + 1} 
+        end
     end
 
     % Testing the implementation
@@ -153,7 +156,11 @@ define
     % b)
     /*
     Q: Give a high-level desciption of your solution and point out any limitations you find relevant.
-    A: 
+    A: The main function LazyNumberGenerator takes in a start value as parameter and utilizes functional nesting calling an anonamous function
+        that returns a new call to LazyNumberGenerator with the start value increased by 1. This is done infinitely.
+        The limitation of this solution is that it does not return a list.
+        As the implementation test shows, the function requires a functional call to create the simulated infinate list.
+        You can not do regular list operations
     */
 
     % Tail Recursion - the ability to write recursive procedures without using stack space.
