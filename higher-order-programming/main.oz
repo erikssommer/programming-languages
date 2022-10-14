@@ -57,6 +57,7 @@ define
 
     % Task 2
     {System.showInfo '\nTask 2'}
+
     local Sum in
         fun {Sum List}
             case List of Head|Tail then
@@ -92,7 +93,7 @@ define
         {RightFold List fun {$ X Y} X + Y end 0}
     end
 
-    fun {Lenght List}
+    fun {Length List}
         {RightFold List fun {$ X Y} 1 + Y end 0}
     end
 
