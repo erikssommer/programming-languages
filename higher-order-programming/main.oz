@@ -198,7 +198,7 @@ define
     /*
     Q: Is your Sum function from Task 2 tail recursive? If yes, explain why. If not, implement a tail-recursive version and explain which changes you needed to introduce to make it tail recursive.
     A: The Sum function from Task 2 is not tail recursive since the function counts from the head to the tail.
-        The tail recursive version of the function is implemented in the code above, and moves from the back of the tail to the front of the list couning the sum along the way
+        The tail recursive version of the function is implemented in the code above, and moves from the back of the tail to the front of the list counting the sum along the way
     */
 
     % c)
@@ -211,7 +211,7 @@ define
     /*
     Q: Do all programming languages that allow recursion benefit from tail recursion? Why/why not?
     A: No, not all programming languages that allow recursion benefit from tail recursion.
-        Programming languages have different ways of implementing recursion, and the compiler utalizes special optimizations differently in different language.
+        Programming languages have different ways of implementing recursion, and the compiler utilizes special optimizations differently in different language.
     */
 
 
