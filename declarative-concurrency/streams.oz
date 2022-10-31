@@ -46,6 +46,7 @@ define
     local Res in
         thread Res = {GenerateOdd 1 5} end
         {ShowStream Res} % prints [1 3 5]
+        thread {ShowStream {GenerateOdd 4 4}} end
     end
 
     {Exit 0}
