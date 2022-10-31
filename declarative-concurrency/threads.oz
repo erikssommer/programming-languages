@@ -6,7 +6,7 @@ import
 define
     % a)
     local A = 10 B = 20 C = 30 in
-        {System.show C} % Printed first
+        {System.show C} % Prints first
 
         thread
             {System.show A} % Prints third
@@ -20,7 +20,7 @@ define
             {System.show B * 10} % Prints fith
         end
 
-        {System.show C * 100} % Printed second
+        {System.show C * 100} % Prints second
     end
 
     /* 
@@ -33,23 +33,29 @@ define
         100
     */
 
-    % b) 
-    % Q: Explain with your own words how execution proceeds and why the result is as such. Would it be possible to have a different sequence printed as output? 
-    % A: The code executes in a non-deterministic way. The threads are executed in a random order. The scheduler picks one among all the ready threads to execute next. It is possible to have a different sequence printed as output, but it is not guaranteed.
+    /*
+    b) 
+    Q: Explain with your own words how execution proceeds and why the result is as such.
+        Would it be possible to have a different sequence printed as output? 
+    A: The code executes in a non-deterministic way. The threads are executed in a random order.
+        The scheduler picks one among all the ready threads to execute next. 
+        It is possible to have a different sequence printed as output, but it is not guaranteed.
+        This is largely due to the fact the threads do not have any dependencies on each other.
+    */
     
     % c) Execute the following code in Mozart and observe the results. What sequence of numbers gets printed as output of the Oz environment?
     local A B C in
         thread
             A = 2
-            {System.show A}
+            {System.show A} % Prints first
         end
         thread
             B = A * 10
-            {System.show B}
+            {System.show B} % Prints second
         end
         
         C=A+B
-        {System.show C}
+        {System.show C} % Prints third
     end
 
     /*
@@ -58,7 +64,13 @@ define
         20
         22
      */
-    
 
+    /*
+    d) 
+    Q: Explain with your own words how execution proceeds and why the result is as such. Would it be possible to have a different sequence printed as output? Explain your answer.
+    A: The code is executed in the same way as the code in task a), but now the second thread depends on the first, so it is executed in the same order every time.
+        There wil therefor allways be the same sequence printed as output.
+    */
+    
     {Exit 0}
 end
