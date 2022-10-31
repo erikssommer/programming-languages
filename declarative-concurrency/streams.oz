@@ -12,8 +12,11 @@ define
             Start|{Enumerate Start+1 End}
         else nil end
     end
+    local Res in
+        thread Res = {Enumerate 1 5} end
+        {System.show Res} % prints [1 2 3 4 5]
+    end
 
-    {System.show {Enumerate 1 5}} % should print [1 2 3 4 5]
 
     {Exit 0}
 end
