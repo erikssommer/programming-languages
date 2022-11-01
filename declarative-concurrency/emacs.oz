@@ -34,7 +34,7 @@ Output:
     100
 */
 
-{Delay 100} % Wait for threads to finish
+{Delay 200} % Wait for threads to finish
 
 {System.showInfo "b) (Text in code)"}
 
