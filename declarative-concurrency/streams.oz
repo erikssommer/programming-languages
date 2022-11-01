@@ -96,15 +96,18 @@ define
 
     % b)
     fun {ListPrimesUntil N} PrimeOf in
+        % function for iterating the stream
         fun {PrimeOf Stream}
             case Stream of nil then nil 
             [] Head|Tail then InStream in
                 if Head =< N then
+                    % filtering out nonprimes from streams, until only primes remain
                     thread InStream={Filter Tail fun {$ Y} Y mod Head \= 0 end} end
                 else InStream = Tail end
                 Head|thread {PrimeOf InStream} end
             end
         end
+        % creating streem of all numbers between 2 and N
         {PrimeOf {Enumerate 2 N}}
     end
   
