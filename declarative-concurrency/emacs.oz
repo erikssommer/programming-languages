@@ -142,7 +142,8 @@ end
 % a)
 {System.showInfo "a)"}
 
-% produces a stream of all the prime numbers up to the number N. ListDivisorOf must be implemented as a consumer of Enumerate
+% produces a stream of all the prime numbers up to the number N. 
+% ListDivisorOf is implemented as a consumer of Enumerate
 fun {ListDivisorsOf Number} Stream DivisorOf in
     % base case
     if Number == 1 then nil
