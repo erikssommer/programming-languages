@@ -229,14 +229,14 @@ local Enumerate in
     fun lazy {Primes} GenPrimes in
         fun lazy {GenPrimes N Stream}
             case Stream of nil then nil
-            [] X|Xr then Ys in
+            [] Head|Tail then NewStream in
                 % making sure to start at 2
-                if X >= N then
-                    thread Ys={Filter Xr fun {$ Y} Y mod X \= 0 end} end
-                    X|thread {GenPrimes N Ys} end
+                if Head >= N then
+                    thread NewStream={Filter Tail fun {$ Y} Y mod Head \= 0 end} end
+                    Head|thread {GenPrimes N NewStream} end
                 else 
                     % moving to a number equal or larger than 2
-                    thread {GenPrimes N Xr} end
+                    thread {GenPrimes N Tail} end
                 end
             end
         end
