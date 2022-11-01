@@ -99,6 +99,7 @@ fun {Enumerate Start End}
         Start|thread {Enumerate Start+1 End} end
     else nil end
 end
+
 local Res in
     thread Res = {Enumerate 1 5} end
     {ShowStream Res} % prints [1 2 3 4 5]
@@ -161,6 +162,7 @@ fun {ListDivisorsOf Number} Stream DivisorOf in
         {DivisorOf Stream.1 Number}
     end
 end
+
 local Res in
     thread Res = {ListDivisorsOf 10} end
     {ShowStream Res} % prints [1 2 5 10]
