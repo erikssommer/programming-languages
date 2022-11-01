@@ -19,9 +19,9 @@ define
     {System.showInfo "Task 4a)"}
 
     % generates an infinite stream of numbers, starting from 1.
-    fun {Enumerate} Generate in
+    fun lazy {Enumerate} Generate in
         fun lazy {Generate N}
-            N|{Generate N+1}
+            N|thread {Generate N+1} end
         end
         {Generate 1}
     end
@@ -32,6 +32,26 @@ define
         {ShowStream Res}
     end
     */
+
+    fun lazy {Primes} GenPrimes in
+        fun lazy {GenPrimes N Stream}
+            case Stream of nil then nil
+            [] X|Xr then Ys in
+                if X >= N then
+                    thread Ys={Filter Xr fun {$ Y} Y mod X \= 0 end} end
+                    X|thread {GenPrimes N Ys} end
+                else 
+                    thread {GenPrimes N Xr} end
+                end
+            end
+        end
+        {GenPrimes 2 {Enumerate}}
+    end
+
+    local Res in
+        thread Res = {Primes} end
+        {ShowStream Res}
+    end
 
     {Exit 0}
 
