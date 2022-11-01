@@ -57,6 +57,8 @@ define
         {ShowStream Res2} % prints nil
     end
 
+    {Delay 100} % wait for 100 milliseconds
+
     % Task 3
     % a) 
     {System.showInfo "Task 3a)"}
@@ -94,19 +96,18 @@ define
 
     % b)
     fun {ListPrimesUntil N} PrimeOf in
-        fun {PrimeOf Start}
-            case Start of nil then nil 
-            [] Head|Tail then Ys in
+        fun {PrimeOf Stream}
+            case Stream of nil then nil 
+            [] Head|Tail then InStream in
                 if Head =< N then
-                    thread Ys={Filter Tail fun {$ Y} Y mod Head \= 0 end} end
-                else Ys=Tail end
-                Head|{PrimeOf Ys}
+                    thread InStream={Filter Tail fun {$ Y} Y mod Head \= 0 end} end
+                else InStream = Tail end
+                Head|thread {PrimeOf InStream} end
             end
         end
         {PrimeOf {Enumerate 2 N}}
     end
   
-
     local Res in
         thread Res = {ListPrimesUntil 10} end
         {ShowStream Res} % prints [2 3 5 7]
