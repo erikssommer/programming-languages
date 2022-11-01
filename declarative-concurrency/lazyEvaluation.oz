@@ -26,6 +26,7 @@ define
         {Generate 1}
     end
 
+    % for testing infinite stream of numbers
     /*
     local Res in
         thread Res = {Enumerate} end
@@ -37,17 +38,22 @@ define
         fun lazy {GenPrimes N Stream}
             case Stream of nil then nil
             [] X|Xr then Ys in
+                % making sure to start at 2
                 if X >= N then
                     thread Ys={Filter Xr fun {$ Y} Y mod X \= 0 end} end
                     X|thread {GenPrimes N Ys} end
                 else 
+                    % moving to a number equal or larger than 2
                     thread {GenPrimes N Xr} end
                 end
             end
         end
+        % generating the stream of primes starting from 2
+        % primes is a consumer of the stream produced by Enumerate
         {GenPrimes 2 {Enumerate}}
     end
 
+    % printing infinite stream of primes
     local Res in
         thread Res = {Primes} end
         {ShowStream Res}
