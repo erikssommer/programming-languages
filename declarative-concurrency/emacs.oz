@@ -95,7 +95,9 @@ end
 % a)
 {System.showInfo "a)"}
 fun {Enumerate Start End}
+    % checking if the list has been fully enumerated
     if Start =< End then
+        % adding to list and wrap the iterative process that generates the numbers with a thread
         Start|thread {Enumerate Start+1 End} end
     else nil end
 end
