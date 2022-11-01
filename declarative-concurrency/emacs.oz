@@ -225,6 +225,7 @@ local Enumerate in
     */
 
     {System.showInfo "b)"}
+
     fun lazy {Primes} GenPrimes in
         fun lazy {GenPrimes N Stream}
             case Stream of nil then nil
