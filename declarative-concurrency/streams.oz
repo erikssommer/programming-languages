@@ -51,7 +51,26 @@ define
 
     % Task 3
     % a) 
-    % fun {ListDivisorsOf Number}
+    % produces a stream of all the prime numbers up to the number N. ListDivisorOf must be implemented as a consumer of Enumerate
+    fun {ListDivisorsOf Number} Stream DivisorOf in
+        if Number == 1 then nil
+        else
+            Stream = {Enumerate 1 Number}
+            fun {DivisorOf Start Number} NewStream in
+                if Number mod Start == 0 then
+                    Start|thread {DivisorOf Start+1 Number} end
+                else
+                    thread {DivisorOf Start+1 Number} end
+                end
+            end
+            {DivisorOf Stream.1 Number}
+        end
+    end
+
+    local Res in
+        thread Res = {ListDivisorsOf 10} end
+        {ShowStream Res} % prints [1 2 5 10]
+    end
 
     {Exit 0}
 end
