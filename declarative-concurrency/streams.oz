@@ -31,12 +31,13 @@ define
     {Delay 100} % wait for 100 milliseconds
     
     % b)
-    fun {GenerateOdd Start End}
+    fun {GenerateOdd Start End} Stream in
         if Start =< End then
-            if {Int.isOdd Start} then
-                Start|thread {GenerateOdd Start+1 End} end
+            Stream = {Enumerate Start End}
+            if {Int.isOdd Stream.1} then
+                Stream.1|thread {GenerateOdd Stream.1+1 End} end
             else
-                thread {GenerateOdd Start+1 End} end
+                thread {GenerateOdd Stream.1+1 End} end
             end
         else nil end
     end
