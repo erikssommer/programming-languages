@@ -53,16 +53,23 @@ define
     % a) 
     % produces a stream of all the prime numbers up to the number N. ListDivisorOf must be implemented as a consumer of Enumerate
     fun {ListDivisorsOf Number} Stream DivisorOf in
+        % base case
         if Number == 1 then nil
         else
+            % creating stream of all numbers between 1 and Number
             Stream = {Enumerate 1 Number}
+            % function for iterating the stream
             fun {DivisorOf Start Number} NewStream in
+                % testing if Start is a divisor of Number
                 if Number mod Start == 0 then
+                    % if it is, then add it to the stream
                     Start|thread {DivisorOf Start+1 Number} end
                 else
+                    % if it is not, then skip it and move to next number in stream
                     thread {DivisorOf Start+1 Number} end
                 end
             end
+            % calling the function with the first number in stream and Number
             {DivisorOf Stream.1 Number}
         end
     end
