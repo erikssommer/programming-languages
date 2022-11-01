@@ -82,6 +82,7 @@ Output:
 
 {System.showInfo "-------- Streams --------"}
 {System.showInfo "Task 2"}
+
 proc {ShowStream List}
     case List of _|Tail then
         {System.show List.1}
@@ -137,6 +138,7 @@ end
 {System.showInfo "Task 3"}
 % a)
 {System.showInfo "a)"}
+
 % produces a stream of all the prime numbers up to the number N. ListDivisorOf must be implemented as a consumer of Enumerate
 fun {ListDivisorsOf Number} Stream DivisorOf in
     % base case
@@ -168,6 +170,7 @@ end
 {Delay 100} % Wait for threads to finish
 
 {System.showInfo "b)"}
+
 % b)
 fun {ListPrimesUntil N} PrimeOf in
     % function for iterating the stream
