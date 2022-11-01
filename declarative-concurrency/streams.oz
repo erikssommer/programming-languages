@@ -32,13 +32,19 @@ define
     
     % b)
     fun {GenerateOdd Start End} Stream in
+        % testing if there is still numbers left to check
         if Start =< End then
+            % creating stream of numbers
             Stream = {Enumerate Start End}
+            % testing if first number of stream is odd
             if {Int.isOdd Stream.1} then
+                % if it is, then we add it to the stream and increment the starting point
                 Stream.1|thread {GenerateOdd Stream.1+1 End} end
             else
+                % if it is not, then we increment the starting point
                 thread {GenerateOdd Stream.1+1 End} end
             end
+        % if there is no numbers left to check, then we return nil
         else nil end
     end
 
