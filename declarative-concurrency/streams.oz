@@ -17,6 +17,7 @@ define
     end
 
     % a)
+    {System.showInfo "Task 2a)"}
     fun {Enumerate Start End}
         if Start =< End then
             Start|thread {Enumerate Start+1 End} end
@@ -31,6 +32,7 @@ define
     {Delay 100} % wait for 100 milliseconds
     
     % b)
+    {System.showInfo "Task 2b)"}
     fun {GenerateOdd Start End} Stream in
         % testing if there is still numbers left to check
         if Start =< End then
@@ -57,6 +59,7 @@ define
 
     % Task 3
     % a) 
+    {System.showInfo "Task 3a)"}
     % produces a stream of all the prime numbers up to the number N. ListDivisorOf must be implemented as a consumer of Enumerate
     fun {ListDivisorsOf Number} Stream DivisorOf in
         % base case
@@ -83,6 +86,30 @@ define
     local Res in
         thread Res = {ListDivisorsOf 10} end
         {ShowStream Res} % prints [1 2 5 10]
+    end
+
+    {Delay 100} % wait for 100 milliseconds
+
+    {System.showInfo "Task 3b)"}
+
+    % b)
+    fun {ListPrimesUntil N} PrimeOf in
+        fun {PrimeOf Start}
+            case Start of nil then nil 
+            [] Head|Tail then Ys in
+                if Head =< N then
+                    thread Ys={Filter Tail fun {$ Y} Y mod Head \= 0 end} end
+                else Ys=Tail end
+                Head|{PrimeOf Ys}
+            end
+        end
+        {PrimeOf {Enumerate 2 N}}
+    end
+  
+
+    local Res in
+        thread Res = {ListPrimesUntil 10} end
+        {ShowStream Res} % prints [2 3 5 7]
     end
 
     {Exit 0}
