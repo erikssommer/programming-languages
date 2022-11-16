@@ -11,7 +11,7 @@ distance(c5, c3, 0, 0). distance(c5, c4, 0, 0).
 
 % Predicate that defines a path between two cabins
 plan(Start, End, Path, TotalDist) :-
-    path(Start, End, [Start], Q, TotalDist),      % Wrapping the plan predicate around help-predicates
+    path(Start, End, [Start], Q, TotalDist),        % Wrapping the plan predicate around help-predicates
     reverse(Q, Path).
 
 % Additional help-predicates when implementing the plan predicate
