@@ -28,19 +28,19 @@ path(Start, End, Visited, Path, TotalDist) :-
     path(Node, End, [Node|Visited], Path, D2),  	% Recurse with Node as start
 	TotalDist is D1 + D2.
 
-% Finding the optimal minimum distance between two cabins
-minimal([F|R], M) :- min(R, F, M).
-
 % Finds the minimal path between two cabins
 bestplan(Start, End, Path, TotalDist) :-
    	setof([Path, TotalDist], plan(Start, End, Path, TotalDist), Set),
    	Set = [_|_],                                    % if empty, no solution
    	minimal(Set, [Path, TotalDist]).
 
+% Finding the optimal minimum distance between two cabins
+minimal([F|R], M) :- min(R, F, M).
+
 % Predicates for finding the minimal path
 min([], M, M).
-min([[P, L]|R], [_, M], Min) :- L < M, !, min(R, [P, L], Min). 
 min([_|R], M, Min) :- min(R, M, Min).
+min([[P, L]|R], [_, M], Min) :- L < M, !, min(R, [P, L], Min). 
 
 % Testing the implementation with the given query:
 plan(c1, c2, Path, TotalDistance).
