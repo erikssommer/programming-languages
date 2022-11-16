@@ -11,19 +11,21 @@ distance(c5, c3, 0, 0). distance(c5, c4, 0, 0).
 
 % Predicate that defines a path between two cabins
 plan(Start, End, Path, TotalDist) :-
-    travel(Start, End, [Start], Q, TotalDist),
+    path(Start, End, [Start], Q, TotalDist),      % Wrapping the plan predicate around help-predicates
     reverse(Q, Path).
 
-% Predicate that defines the travel between two cabins
-travel(Start, End, P, [End|P], TotalDist) :- 
+% Additional help-predicates when implementing the plan predicate
+
+% Predicate that defines the path between two cabins
+path(Start, End, P, [End|P], TotalDist) :- 
     distance(Start, End, TotalDist, 1).
 
 % Predicate that defines a path between two cabins, with a list of visited cabins
-travel(Start, End, Visited, Path, TotalDist) :-
+path(Start, End, Visited, Path, TotalDist) :-
     distance(Start, Node, D1, 1),   				% Start and Node are connected        
     Node \== End, 								    % Node is not end
     \+member(Node, Visited),						% Node har not been visited
-    travel(Node, End, [Node|Visited], Path, D2),  	% Recurse with Node as start
+    path(Node, End, [Node|Visited], Path, D2),  	% Recurse with Node as start
 	TotalDist is D1 + D2.
 
 % Finding the optimal minimum distance between two cabins
