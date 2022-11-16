@@ -21,18 +21,18 @@ travel(Start, End, P, [End|P], TotalDist) :-
 % Predicate that defines a path between two cabins, with a list of visited cabins
 travel(Start, End, Visited, Path, TotalDist) :-
     distance(Start, Node, D1, 1),   				% Start and Node are connected        
-    Node \== End, 								% Node is not end
+    Node \== End, 								    % Node is not end
     \+member(Node, Visited),						% Node har not been visited
     travel(Node, End, [Node|Visited], Path, D2),  	% Recurse with Node as start
 	TotalDist is D1 + D2.
 
-% Finds the shortest path between two cabins
+% Finding the optimal minimum distance between two cabins
 minimal([F|R], M) :- min(R, F, M).
 
 % Finds the minimal path between two cabins
 bestplan(Start, End, Path, TotalDist) :-
    	setof([Path, TotalDist], plan(Start, End, Path, TotalDist), Set),
-   	Set = [_|_],                                % fail if empty
+   	Set = [_|_],                                    % if empty, no solution
    	minimal(Set, [Path, TotalDist]).
 
 % Predicates for finding the minimal path
