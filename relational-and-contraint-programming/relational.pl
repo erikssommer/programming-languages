@@ -34,3 +34,15 @@ bestplan(Start, End, Path, Dist) :-
 min([],M,M).
 min([[P,L]|R],[_,M],Min) :- L < M, !, min(R,[P,L],Min). 
 min([_|R],M,Min) :- min(R,M,Min).
+
+% Testing the implementation with the given query:
+plan(c1, c2, Path, TotalDistance).
+
+% Prints the result:
+
+% Path = [c1, c2],
+% TotalDistance = 10
+% Path = [c1, c4, c2],
+% TotalDistance = 19
+% Path = [c1, c5, c2],
+% TotalDistance = 25
