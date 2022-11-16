@@ -24,14 +24,14 @@ path(Start, End, P, [End|P], TotalDist) :-
 path(Start, End, Visited, Path, TotalDist) :-
     distance(Start, Node, D1, 1),   				% Start and Node are connected        
     Node \== End, 								    % Node is not end
-    \+member(Node, Visited),						% Node har not been visited
-    path(Node, End, [Node|Visited], Path, D2),  	% Recurse with Node as start
+    \+member(Node, Visited),						% Node has not been visited
+    path(Node, End, [Node|Visited], Path, D2),  	% Recursive call with Node as Start
 	TotalDist is D1 + D2.
 
 % Finds the minimal path between two cabins
 bestplan(Start, End, Path, TotalDist) :-
    	setof([Path, TotalDist], plan(Start, End, Path, TotalDist), Set),
-   	Set = [_|_],                                    % if empty, no solution
+   	Set = [_|_],                                    % Ff empty, no solution
    	minimal(Set, [Path, TotalDist]).
 
 % Finding the optimal minimum distance between two cabins
