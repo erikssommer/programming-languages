@@ -26,6 +26,11 @@ travel(Start,End,Visited,Path,Dist) :-
 
 minimal([F|R],M) :- min(R,F,M).
 
+bestplan(Start, End, Path, Dist) :-
+   	setof([Path,Dist],plan(Start,End,Path,Dist),Set),
+   	Set = [_|_],                                % fail if empty
+   	minimal(Set,[Path,Dist]).
+
 min([],M,M).
 min([[P,L]|R],[_,M],Min) :- L < M, !, min(R,[P,L],Min). 
 min([_|R],M,Min) :- min(R,M,Min).
