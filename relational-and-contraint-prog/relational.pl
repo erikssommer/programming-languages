@@ -12,23 +12,23 @@ distance(c5, c3, 0, 0). distance(c5, c4, 0, 0).
 % Task 2.1: Create a planner
 % Predicate that defines a path between two cabins
 plan(Cabin1, Cabin2, Path, TotalDistance) :-
-    not(Cabin1 = Cabin2),                               % Rule that the path cannot be from a cabin to itself
-    path(Cabin1, Cabin2, [Cabin1], Q, TotalDistance),   % Wrapping the plan predicate around help-predicates
-    reverse(Q, Path).
+    not(Cabin1 = Cabin2),                                      % Rule that the path cannot be from a cabin to itself
+    path(Cabin1, Cabin2, [Cabin1], Queue, TotalDistance),          % Wrapping the plan predicate around help-predicates
+    reverse(Queue, Path).
 
 % Additional help-predicates when implementing the plan predicate
 
 % Predicate that defines the path between two cabins
-path(Cabin1, Cabin2, P, [Cabin2|P], TotalDistance) :- 
+path(Cabin1, Cabin2, Past, [Cabin2|Past], TotalDistance) :- 
     distance(Cabin1, Cabin2, TotalDistance, 1).
 
 % Predicate that defines a path between two cabins, with a list of visited cabins
 path(Cabin1, Cabin2, Visited, Path, TotalDistance) :-
-    distance(Cabin1, Node, D1, 1),                      % Cabin1 and Node are connected        
-    Node \== Cabin2,                                    % Node is not end
-    \+member(Node, Visited),                            % Node has not been visited
-    path(Node, Cabin2, [Node|Visited], Path, D2),       % Recursive call with Node as Cabin1
-	TotalDistance is D1 + D2.
+    distance(Cabin1, Curr, Distance1, 1),                      % Cabin1 and Curr are connected        
+    not(Curr = Cabin2),                                        % Curr is not end
+    \+member(Curr, Visited),                                   % Curr has not been visited
+    path(Curr, Cabin2, [Curr|Visited], Path, Distance2),       % Recursive call with Curr as Cabin1
+	TotalDistance is Distance1 + Distance2.                    % Add the distance between Cabin1 and Curr to the total distance
 
 % Testing the implementation with the given query:
 % plan(c1, c2, Path, TotalDistance).
@@ -46,16 +46,19 @@ path(Cabin1, Cabin2, Visited, Path, TotalDistance) :-
 % Finds the minimal path between two cabins
 bestplan(Cabin1, Cabin2, Path, Distance) :-
    	setof([Path, Distance], plan(Cabin1, Cabin2, Path, Distance), Set),
-   	Set = [_|_],                                        % If empty, no solution                 
+   	Set = [_|_],                                               % If empty, no solution                 
    	minimal(Set, [Path, Distance]).
 
 % Finding the optimal minimum distance between two cabins
-minimal([F|R], M) :- min(R, F, M).
+minimal([Head|Tail], PathDistance) :- min(Tail, Head, PathDistance).
 
 % Predicates for finding the minimal path
-min([], M, M).
-min([_|R], M, Min) :- min(R, M, Min).
-min([[P, L]|R], [_, M], Min) :- L < M, !, min(R, [P, L], Min). 
+min([], PathDistance, PathDistance).
+min([_|Tail], PathDistance, Min) :- min(Tail, PathDistance, Min).
+min([[CurrPath, CurrDistance]|Tail], [_, PathDistance], Min) :- 
+    CurrPath < PathDistance, % Test
+    !, % Blocks backtracking for all branches above it that may have alternatives, increases efficiency 
+    min(Tail, [CurrPath, CurrDistance], Min). 
 
 % Testing the implementation with the given query:
 % bestplan(c1, c2, Path, Distance).
