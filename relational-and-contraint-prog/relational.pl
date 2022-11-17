@@ -10,28 +10,34 @@ distance(c4, c2, 12, 1). distance(c5, c2, 20, 1). distance(c4, c3, 0, 0).
 distance(c5, c3, 0, 0). distance(c5, c4, 0, 0).
 
 % Predicate that defines a path between two cabins
-plan(Start, End, Path, TotalDist) :-
-    path(Start, End, [Start], Q, TotalDist),        % Wrapping the plan predicate around help-predicates
+plan(Start, Goal, Path, TotalDist) :-
+    % Wrapping the plan predicate around help-predicates
+    path(Start, Goal, [Start], Q, TotalDist),
     reverse(Q, Path).
 
 % Additional help-predicates when implementing the plan predicate
 
 % Predicate that defines the path between two cabins
-path(Start, End, P, [End|P], TotalDist) :- 
-    distance(Start, End, TotalDist, 1).
+path(Start, Goal, P, [Goal|P], TotalDist) :- 
+    distance(Start, Goal, TotalDist, 1).
 
 % Predicate that defines a path between two cabins, with a list of visited cabins
-path(Start, End, Visited, Path, TotalDist) :-
-    distance(Start, Node, D1, 1),   				% Start and Node are connected        
-    Node \== End, 								    % Node is not end
-    \+member(Node, Visited),						% Node has not been visited
-    path(Node, End, [Node|Visited], Path, D2),  	% Recursive call with Node as Start
+path(Start, Goal, Visited, Path, TotalDist) :-
+    % Start and Node are connected
+    distance(Start, Node, D1, 1),
+    % Node is not end        
+    Node \== Goal,
+    % Node has not been visited
+    \+member(Node, Visited),
+    % Recursive call with Node as Start
+    path(Node, Goal, [Node|Visited], Path, D2),
 	TotalDist is D1 + D2.
 
 % Finds the minimal path between two cabins
-bestplan(Start, End, Path, TotalDist) :-
-   	setof([Path, TotalDist], plan(Start, End, Path, TotalDist), Set),
-   	Set = [_|_],                                    % Ff empty, no solution
+bestplan(Start, Goal, Path, TotalDist) :-
+   	setof([Path, TotalDist], plan(Start, Goal, Path, TotalDist), Set),
+    % If empty, no solution
+   	Set = [_|_],                  
    	minimal(Set, [Path, TotalDist]).
 
 % Finding the optimal minimum distance between two cabins
