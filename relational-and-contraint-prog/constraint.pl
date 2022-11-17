@@ -3,6 +3,7 @@
 % A small prolog predicate that takes a list of coins as input.
 % The predicate accepts a payment sum and a list of coin(Count,Value,Limit).
 
+% Task 1
 
 payment(0, []).
 payment(Amount, [coin(Count,Value,Limit)|Tail]) :-
