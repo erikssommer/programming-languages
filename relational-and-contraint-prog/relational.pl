@@ -56,7 +56,7 @@ minimal([Head|Tail], PathDistance) :- min(Tail, Head, PathDistance).
 min([], PathDistance, PathDistance).
 min([_|Tail], PathDistance, Min) :- min(Tail, PathDistance, Min).
 min([[CurrPath, CurrDistance]|Tail], [_, PathDistance], Min) :- 
-    CurrPath < PathDistance, % Test
+    CurrPath < PathDistance, % Test if shorter path
     !, % Blocks backtracking for all branches above it that may have alternatives, increases efficiency 
     min(Tail, [CurrPath, CurrDistance], Min). 
 
