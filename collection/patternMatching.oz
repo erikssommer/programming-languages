@@ -25,7 +25,7 @@ define
 
     % Simplify by using pattern-matching in case-constructs.
     proc {Insert Key Value TreeIn ?TreeOut}
-        case TreeIn of nill then TreeOut = tree(Key Value nil nil)
+        case TreeIn of nil then TreeOut = tree(Key Value nil nil)
         [] tree(K1 V1 T1 T2) then
             if Key == K1 then TreeOut = tree(Key Value, T1 T2)
             elseif Key < K1 then T in
