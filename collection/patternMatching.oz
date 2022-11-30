@@ -1,4 +1,3 @@
-% Task 4: Lazy Evaluation
 functor
 import
     Application(exit:Exit)
