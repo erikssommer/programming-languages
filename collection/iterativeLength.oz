@@ -15,7 +15,8 @@ define
         [] _|Yr then {LengthIter I+1 Yr} end
     end
 
-    {System.showInfo {LengthRec 10}}
+    {System.show {LengthRec [1 2 3 4 5]}}
+    {System.show {LengthIter 0 [1 2 3 4 5]}}
 
-    {Exit.exit 0}
+    {Exit 0}
 end
