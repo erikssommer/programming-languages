@@ -12,6 +12,7 @@ define
         end
     end
 
+    % Creating list from to
     fun {ListFromTo From To}
         if From > To then nil
         else
@@ -19,8 +20,19 @@ define
         end
     end
 
+    % Creating list of even from to
+    fun {EvenFromTo From To}
+        if From > To then nil
+        elseif From mod 2 == 0 then
+            From|{EvenFromTo From+1 To}
+        else
+            {EvenFromTo From+1 To}
+        end
+    end
+
     {System.show {CreateList 5}}
     {System.show {ListFromTo 5 11}}
+    {System.show {EvenFromTo 0 11}}
 
     {Exit 0}
 end
