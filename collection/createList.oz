@@ -34,5 +34,10 @@ define
     {System.show {ListFromTo 5 11}}
     {System.show {EvenFromTo 0 11}}
 
+    List = {CreateList 5}
+
+    % Printing first element of list
+    {System.show List.1}
+
     {Exit 0}
 end
