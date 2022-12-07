@@ -12,8 +12,9 @@ define
             case ListofTrees of nil then
                 U
             [] S|ListofTrees2 then
-                {FoldTree NodeAcc BranchAcc S U}
-                {FoldTreeR ListofTrees2 NodeAcc BranchAcc U}
+                {BranchAcc
+                    {FoldTree NodeAcc BranchAcc S U}
+                    {FoldTreeR ListofTrees2 NodeAcc BranchAcc U}}
             end
         end
     in
