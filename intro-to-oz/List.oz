@@ -105,4 +105,4 @@ fun {Pop List}
     case List of _|Rest then
         Rest
     end
- end
+end
