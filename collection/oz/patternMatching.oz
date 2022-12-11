@@ -4,6 +4,7 @@ import
     System
 define
     % The program shown employs pattern matching on records.
+    % Inserting a node (key and value) in a binary tree
     proc {Insert Key Value TreeIn ?TreeOut}
         if TreeIn == nil then TreeOut = tree(Key Value nil nil)
         else
