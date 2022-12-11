@@ -14,7 +14,7 @@ define
             case T of nil then
                 B = true
             [] tree(K V T1 T2) then
-                {And (BinaryTree T1) (BinaryTree T2) B}
+                {And {BinaryTree T1} {BinaryTree T2} B}
             else 
                 B = false
             end
