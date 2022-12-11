@@ -38,4 +38,6 @@ define
            else B = false end 
         end 
      end
+
+     {Exit 0}
 end
