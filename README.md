@@ -1,6 +1,6 @@
 # Programming Languages
 
-> Mainly functional programming in oz
+Mainly functional programming in oz, and some logical programming in prolog
 
 ## Contents
 - Collection: Different programming techniques
