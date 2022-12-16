@@ -10,14 +10,22 @@ define
     end
 
     % Procedure length
-    proc {LengthProc Xs Result}
-        case Xs of nil then 
-            {System.show Result}
-        [] _|Xr then {LengthProc Xr Result+1} end
+    proc {LengthProc Xs ?Res}
+        case Xs of nil then Res = 0
+        [] _|Xr then
+            local R1 R2 in
+                R1 = 1
+                {LengthProc Xr R2}
+                Res = R1 + R2
+            end
+        end
     end
 
-    {System.show {LengthFunc [1 2 3]}}
-    {LengthProc [1 2 3] 0}
+    local Res in
+        {System.show {LengthFunc [1 2 3]}}
+        {LengthProc [1 2 3] Res}
+        {System.show Res}
+    end
 
     {Exit 0}
 end
