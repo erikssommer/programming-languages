@@ -3,6 +3,7 @@ import
     Application(exit:Exit)
     System
 define
+    % lazy list reversal
     fun lazy {R1 S}
         fun {FnX S R}
             case S of nil then R
